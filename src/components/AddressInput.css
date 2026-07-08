@@ -1,0 +1,37 @@
+.address-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.address-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.address-input button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.address-input button:hover {
+  background-color: #0056b3;
+}
+
+.address-input button:disabled {
+  background-color: #99c2ff;
+  cursor: not-allowed;
+}
+
+.address-error {
+  color: #c0392b;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
