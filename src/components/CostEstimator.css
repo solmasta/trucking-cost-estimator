@@ -1,26 +1,40 @@
-.cost-estimator {
-  margin: 20px 0;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 .cost-estimator h2 {
   margin-top: 0;
 }
 
+.rate-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.rate-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 120px;
+}
+
 .cost-estimator button {
-  margin-top: 10px;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #0b5fff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .cost-estimator button:hover {
-  background-color: #0056b3;
+  background-color: #094fd1;
+}
+
+.cost-result {
+  margin-top: 12px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1f2933;
 }
