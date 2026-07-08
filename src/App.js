@@ -38,29 +38,4 @@ const App = () => {
   );
 };
 
-export default App;    </div>
-  );
-};
-
-export default App;  return (
-    <div className="app-container">
-      <h1>Trucking Cost Estimator</h1>
-      <div className="address-section">
-        <h2>Start Address</h2>
-        <AddressInput onAddressChange={handleStartChange} isLoaded={isLoaded} />
-      </div>
-      <div className="address-section">
-        <h2>End Address</h2>
-        <AddressInput onAddressChange={handleEndChange} isLoaded={isLoaded} />
-      </div>
-      <div className="map-section">
-        <Map start={start} end={end} isLoaded={isLoaded} />
-      </div>
-      <div className="cost-estimator-section">
-        <CostEstimator start={start} end={end} rate={rate} />
-      </div>
-    </div>
-  );
-};
-
 export default App;
