@@ -1,0 +1,82 @@
+.bills-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.bills-form input,
+.bills-form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.bills-form button {
+  padding: 10px;
+  background-color: #0b5fff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bills-summary {
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.bills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bill-row {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.bill-row.overdue {
+  border-color: #dc2626;
+  background: #fef2f2;
+}
+
+.bill-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bill-category {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.bill-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.bill-actions button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  border: 1px solid #0b5fff;
+  background: white;
+  color: #0b5fff;
+}
+
+.delete-btn {
+  border-color: #dc2626 !important;
+  color: #dc2626 !important;
+}
