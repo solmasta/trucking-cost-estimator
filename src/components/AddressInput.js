@@ -1,32 +1,44 @@
 import React, { useState } from 'react';
 import './AddressInput.css';
 
-const AddressInput = ({ onAddressChange, isLoaded }) => {
+const AddressInput = ({ onAddressChange }) => {
   const [address, setAddress] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     setAddress(e.target.value);
   };
 
-  const handleGeocode = () => {
+  const handleGeocode = async () => {
     setError('');
-
-    if (!isLoaded || !window.google || !window.google.maps) {
-      setError('Map is still loading, please wait a moment and try again.');
+    if (!address.trim()) {
+      setError('Please enter an address.');
       return;
     }
 
-    const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode({ address }, (results, status) => {
-      if (status === 'OK' && results && results.length > 0) {
-        const location = results[0].geometry.location;
-        onAddressChange({ lat: location.lat(), lng: location.lng() });
+    setLoading(true);
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(address)}`;
+      const response = await fetch(url, {
+        headers: { 'Accept-Language': 'en' },
+      });
+      const results = await response.json();
+
+      if (results && results.length > 0) {
+        onAddressChange({
+          lat: parseFloat(results[0].lat),
+          lng: parseFloat(results[0].lon),
+        });
       } else {
         setError('Could not find that address.');
-        console.error('Geocoding failed:', status);
       }
-    });
+    } catch (err) {
+      setError('Something went wrong looking up that address.');
+      console.error('Geocoding failed:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -35,6 +47,17 @@ const AddressInput = ({ onAddressChange, isLoaded }) => {
         type="text"
         value={address}
         onChange={handleInputChange}
+        placeholder="Enter address"
+      />
+      <button onClick={handleGeocode} disabled={loading}>
+        {loading ? 'Searching...' : 'Geocode'}
+      </button>
+      {error && <p className="address-error">{error}</p>}
+    </div>
+  );
+};
+
+export default AddressInput;        onChange={handleInputChange}
         placeholder="Enter address"
       />
       <button onClick={handleGeocode} disabled={!isLoaded}>Geocode</button>
