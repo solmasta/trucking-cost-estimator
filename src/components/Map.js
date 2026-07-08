@@ -1,40 +1,58 @@
-import React, { useState } from 'react';
-import { GoogleMap, Marker } from '@react-google-maps/api';
+import React, { useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import './Map.css';
+
+// Fix default marker icons not loading correctly with bundlers
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+});
 
 const defaultCenter = { lat: 37.7749, lng: -122.4194 };
 
-const Map = ({ start, end, isLoaded }) => {
-  const [center, setCenter] = useState(defaultCenter);
-
-  const onLoad = (map) => {
-    const mapCenter = map.getCenter();
-    if (mapCenter) {
-      setCenter({ lat: mapCenter.lat(), lng: mapCenter.lng() });
+// Recenters the map whenever start/end change
+const Recenter = ({ start, end }) => {
+  const map = useMap();
+  useEffect(() => {
+    if (start && end) {
+      map.fitBounds([
+        [start.lat, start.lng],
+        [end.lat, end.lng],
+      ]);
+    } else if (start) {
+      map.setView([start.lat, start.lng], 10);
+    } else if (end) {
+      map.setView([end.lat, end.lng], 10);
     }
-  };
+  }, [start, end, map]);
+  return null;
+};
 
-  if (!isLoaded) {
-    return (
-      <div className="map-container">
-        <p>Loading map...</p>
-      </div>
-    );
-  }
-
+const Map = ({ start, end }) => {
   return (
     <div className="map-container">
-      <GoogleMap
-        mapContainerStyle={{ height: '400px', width: '100%' }}
+      <MapContainer
+        center={[defaultCenter.lat, defaultCenter.lng]}
         zoom={10}
-        center={start || end || center}
-        onLoad={onLoad}
+        style={{ height: '400px', width: '100%' }}
       >
-        {start && <Marker position={start} />}
-        {end && <Marker position={end} />}
-      </GoogleMap>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {start && <Marker position={[start.lat, start.lng]} />}
+        {end && <Marker position={[end.lat, end.lng]} />}
+        <Recenter start={start} end={end} />
+      </MapContainer>
     </div>
   );
+};
+
+export default Map;  );
 };
 
 export default Map;
