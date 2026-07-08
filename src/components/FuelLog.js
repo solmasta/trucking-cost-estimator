@@ -32,9 +32,14 @@ const FuelLog = () => {
         const response = await fetch(EIA_SERIES_URL);
         const data = await response.json();
         const record = data?.response?.data?.[0];
-        if (record) {
-          setRegionalAvg(record.value);
-          setRegionalDate(record.period);
+        if (record && record.value !== undefined && record.value !== null) {
+          const parsedValue = parseFloat(record.value);
+          if (!isNaN(parsedValue)) {
+            setRegionalAvg(parsedValue);
+            setRegionalDate(record.period);
+          } else {
+            setAvgError('EIA returned an unexpected value.');
+          }
         } else {
           setAvgError('Could not read regional average from EIA.');
         }
@@ -105,46 +110,4 @@ const FuelLog = () => {
         <input
           type="number"
           step="0.001"
-          name="pricePerGallon"
-          placeholder="Price per gallon ($)"
-          value={form.pricePerGallon}
-          onChange={handleChange}
-        />
-        <input
-          type="number"
-          step="0.01"
-          name="gallons"
-          placeholder="Gallons"
-          value={form.gallons}
-          onChange={handleChange}
-        />
-        <button onClick={handleAdd}>Add Entry</button>
-      </div>
-
-      <div className="fuel-summary">
-        <span>Avg price/gal: ${avgPrice.toFixed(3)}</span>
-        <span>Total spent: ${totalSpent.toFixed(2)}</span>
-      </div>
-
-      <div className="fuel-entries">
-        {entries.length === 0 && <p className="empty-state">No fuel entries yet.</p>}
-        {entries.map((entry) => (
-          <div key={entry.id} className="fuel-entry">
-            <div>
-              <strong>{entry.date}</strong> — {entry.location}
-            </div>
-            <div>
-              ${entry.pricePerGallon.toFixed(3)}/gal × {entry.gallons} gal = $
-              {(entry.pricePerGallon * entry.gallons).toFixed(2)}
-            </div>
-            <button className="delete-btn" onClick={() => handleDelete(entry.id)}>
-              Delete
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default FuelLog;
+          name="price
