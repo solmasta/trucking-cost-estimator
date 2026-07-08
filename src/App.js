@@ -38,6 +38,10 @@ const App = () => {
   );
 };
 
+export default App;    </div>
+  );
+};
+
 export default App;  return (
     <div className="app-container">
       <h1>Trucking Cost Estimator</h1>
