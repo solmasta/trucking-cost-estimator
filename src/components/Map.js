@@ -4,7 +4,6 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
 
-// Fix default marker icons not loading correctly with bundlers
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
@@ -14,7 +13,6 @@ L.Icon.Default.mergeOptions({
 
 const defaultCenter = { lat: 37.7749, lng: -122.4194 };
 
-// Recenters the map whenever start/end change
 const Recenter = ({ start, end }) => {
   const map = useMap();
   useEffect(() => {
@@ -50,9 +48,6 @@ const Map = ({ start, end }) => {
       </MapContainer>
     </div>
   );
-};
-
-export default Map;  );
 };
 
 export default Map;
