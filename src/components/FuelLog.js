@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './FuelLog.css';
 
 const LOG_KEY = 'trucking-fuel-log';
-const EIA_API_KEY = 'YOUR_EIA_API_KEY_HERE';
+const EIA_API_KEY = 'pR5T5cCJ9ND2mA04MmmIoB5XKsl8jSYy2qn1Hoi8';
 // Midwest (PADD 2) weekly retail diesel price series - covers Illinois
 const EIA_SERIES_URL = `https://api.eia.gov/v2/petroleum/pri/gnd/data/?api_key=${EIA_API_KEY}&frequency=weekly&data[0]=value&facets[series][]=EMD_EPD2D_PTE_R20_DPG&sort[0][column]=period&sort[0][direction]=desc&length=1`;
 
@@ -91,75 +91,6 @@ const FuelLog = () => {
         Log your own diesel prices as you fill up. There's no free live
         per-station lookup by GPS, so entries here are manual — the box
         above shows the free weekly regional average for comparison.
-      </p>
-
-      <div className="fuel-form">
-        <input type="date" name="date" value={form.date} onChange={handleChange} />
-        <input
-          type="text"
-          name="location"
-          placeholder="Station / city"
-          value={form.location}
-          onChange={handleChange}
-        />
-        <input
-          type="number"
-          step="0.001"
-          name="pricePerGallon"
-          placeholder="Price per gallon ($)"
-          value={form.pricePerGallon}
-          onChange={handleChange}
-        />
-        <input
-          type="number"
-          step="0.01"
-          name="gallons"
-          placeholder="Gallons"
-          value={form.gallons}
-          onChange={handleChange}
-        />
-        <button onClick={handleAdd}>Add Entry</button>
-      </div>
-
-      <div className="fuel-summary">
-        <span>Avg price/gal: ${avgPrice.toFixed(3)}</span>
-        <span>Total spent: ${totalSpent.toFixed(2)}</span>
-      </div>
-
-      <div className="fuel-entries">
-        {entries.length === 0 && <p className="empty-state">No fuel entries yet.</p>}
-        {entries.map((entry) => (
-          <div key={entry.id} className="fuel-entry">
-            <div>
-              <strong>{entry.date}</strong> — {entry.location}
-            </div>
-            <div>
-              ${entry.pricePerGallon.toFixed(3)}/gal × {entry.gallons} gal = $
-              {(entry.pricePerGallon * entry.gallons).toFixed(2)}
-            </div>
-            <button className="delete-btn" onClick={() => handleDelete(entry.id)}>
-              Delete
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default FuelLog;  };
-
-  const totalSpent = entries.reduce((sum, e) => sum + e.pricePerGallon * e.gallons, 0);
-  const avgPrice = entries.length
-    ? entries.reduce((sum, e) => sum + e.pricePerGallon, 0) / entries.length
-    : 0;
-
-  return (
-    <div className="card fuel-log">
-      <h2>Diesel Fuel Log</h2>
-      <p className="fuel-note">
-        Log diesel prices as you fill up. There's no free live diesel-price
-        feed by location, so entries are manual for now.
       </p>
 
       <div className="fuel-form">
