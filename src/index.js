@@ -11,6 +11,4 @@ root.render(
   </React.StrictMode>
 );
 
-// Registers the caching service worker (public/service-worker.js).
-// Switch to serviceWorker.unregister() if you don't want offline caching.
 serviceWorker.register();
