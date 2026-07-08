@@ -7,7 +7,7 @@ import './App.css';
 const App = () => {
   const [start, setStart] = useState(null);
   const [end, setEnd] = useState(null);
-  const [rate, setRate] = useState(0.5); // Default rate per mile
+  const [rate] = useState(0.5); // Default rate per mile
 
   const handleStartChange = (location) => {
     setStart(location);
