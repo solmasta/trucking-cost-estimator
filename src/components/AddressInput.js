@@ -57,13 +57,4 @@ const AddressInput = ({ onAddressChange }) => {
   );
 };
 
-export default AddressInput;        onChange={handleInputChange}
-        placeholder="Enter address"
-      />
-      <button onClick={handleGeocode} disabled={!isLoaded}>Geocode</button>
-      {error && <p className="address-error">{error}</p>}
-    </div>
-  );
-};
-
 export default AddressInput;
